@@ -18,11 +18,7 @@ public class DictionaryCommandLine {
     }
     private static void dictionaryAdvanced() throws FileNotFoundException {
         insertFromFile();
-        showAllWords();
-        deleteWord();
-        showAllWords();
-        dictionaryLookup();
-        dictionarySearcher();
+        openMenu();
     }
     private static void dictionarySearcher(){
         Search();

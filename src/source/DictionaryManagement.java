@@ -3,6 +3,7 @@ package source;
 import java.io.*;
 import java.util.Scanner;
 
+
 class DictionaryManagement {
     static Dictionary dict = new Dictionary();
     static void insertFromCommandline(){
@@ -24,8 +25,10 @@ class DictionaryManagement {
             dict.words.add(word);
         }
     }
+
+
     public static void insertFromFile() throws FileNotFoundException {
-        File file = new File("C:\\Users\\Thu\\IdeaProjects\\Dictionary_TP\\dictionaries.txt");
+        File file = new File("C:\\Users\\Administrator.SCX1JKX2YEHIZ1G\\IdeaProjects\\Dictionary\\dictionaries.txt");
         Scanner scan = new Scanner(file);
         while(scan.hasNext()) {
             String eng = scan.next();
@@ -37,6 +40,14 @@ class DictionaryManagement {
             dict.words.add(word);
         }
     }
+
+    public static void showAllWords(){
+        System.out.println("No\t|English\t|Vietnamese");
+        for(int i=0; i<dict.size; i++){
+            System.out.printf("%d\t|%s\t\t|%s\n", i, dict.words.get(i).getWord_target(), dict.words.get(i).getWord_explain());
+        }
+    }
+
     public static void dictionaryLookup(){
         Scanner scan = new Scanner (System.in);
         System.out.println("Choose a word to look up: ");
@@ -55,6 +66,52 @@ class DictionaryManagement {
             if (!found) System.out.println("Can not find your word");
         } while (true);
     }
+
+
+    public static void addWord(){
+        Scanner scan = new Scanner (System.in);
+        System.out.println("Choose a word to add: ");
+        System.out.println("(press -enough to stop)");
+        do {
+            String wordToAdd = scan.nextLine();
+            if (wordToAdd.equals("-enough")) break;
+            System.out.println("Define that word: ");
+            String meaning = scan.nextLine();
+            Word word = new Word();
+            word.setWord_target(wordToAdd);
+            word.setWord_explain(meaning);
+            dict.size++;
+            dict.words.add(word);
+            System.out.println("Your word has been added ");
+            System.out.println("Choose a word to add: ");
+        } while (true);
+    }
+
+
+    public static void replaceWord(){
+        Scanner scan = new Scanner (System.in);
+        System.out.println("Choose a word to replace: ");
+        System.out.println("(press -enough to stop)");
+        do {
+            String wordToReplace = scan.nextLine();
+            if (wordToReplace.equals("-enough")) break;
+            System.out.println("Redifine that word:");
+            String meaning = scan.nextLine();
+            boolean found = false;
+            for (int i=0 ; i<dict.size ; i++){
+                if (dict.words.get(i).getWord_target().equals(wordToReplace)){
+                    dict.words.get(i).setWord_explain(meaning);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) System.out.println("Can not find your word");
+             else System.out.println("Word has been redefined");
+            System.out.println("Choose a word to replace: ");
+        } while (true);
+    }
+
+
     public static void deleteWord(){
         Scanner scan = new Scanner (System.in);
         System.out.println("Choose a word to delete: ");
@@ -75,6 +132,8 @@ class DictionaryManagement {
              else System.out.println("Your word has been deleted from the dictionary");
         } while (true);
     }
+
+
     public static void Search(){
         Scanner scan = new Scanner (System.in);
         System.out.println("Type part of a word to search: ");
@@ -95,10 +154,12 @@ class DictionaryManagement {
             if (!found) System.out.println("Can not find any word");
         } while (true);
     }
+
+
     public void dictionaryExportToFile() throws IOException {
         BufferedWriter bw = null;
         FileWriter fileW = null;
-        String fileName = "C:\\Users\\Thu\\IdeaProjects\\Dictionary_TP\\dictionaries.txt";
+        String fileName = "C:\\Users\\Administrator.SCX1JKX2YEHIZ1G\\IdeaProjects\\Dictionary_TP\\dictionaries.txt";
 
         fileW = new FileWriter(fileName);
         bw = new BufferedWriter(fileW);
@@ -107,5 +168,46 @@ class DictionaryManagement {
             bw.write(tempW.getWord_target() + "\t" + tempW.getWord_explain());
             bw.newLine();
         }
+    }
+
+    public static void openMenu() {
+        System.out.println("Welcome to dictionary!");
+        System.out.println("Type -show to see the current dictionary ");
+        System.out.println("Type -add to add words to dictionary");
+        System.out.println("Type -redef to redefine words in dictionary");
+        System.out.println("Type -del to delete words in dictionary");
+        System.out.println("Type -look to look up words in dictionary");
+        System.out.println("Type -search to search multiple English words in dictionary");
+        System.out.println("Type -close to close the dictionary");
+        Scanner scan = new Scanner(System.in);
+        boolean close = false;
+        do {
+            String choice = scan.nextLine();
+            switch (choice) {
+                case "-show":
+                    showAllWords();
+                    break;
+                case "-add":
+                    addWord();
+                    break;
+                case "-redef":
+                    replaceWord();
+                    break;
+                case "-del":
+                    deleteWord();
+                    break;
+                case "-look":
+                    dictionaryLookup();
+                    break;
+                case "-search":
+                    Search();
+                    break;
+                case "-close":
+                    close = true;
+                    break;
+                default:
+                    System.out.println("Your command doesn't exist");
+            }
+        } while (!close);
     }
 }
