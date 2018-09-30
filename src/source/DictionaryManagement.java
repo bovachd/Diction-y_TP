@@ -3,7 +3,6 @@ package source;
 import java.io.*;
 import java.util.Scanner;
 
-
 class DictionaryManagement {
     static Dictionary dict = new Dictionary();
     static void insertFromCommandline(){
@@ -26,7 +25,7 @@ class DictionaryManagement {
         }
     }
     public static void insertFromFile() throws FileNotFoundException {
-        File file = new File("C:\\Users\\Administrator.SCX1JKX2YEHIZ1G\\IdeaProjects\\Dictionary\\dictionaries.txt");
+        File file = new File("C:\\Users\\Thu\\IdeaProjects\\Dictionary_TP\\dictionaries.txt");
         Scanner scan = new Scanner(file);
         while(scan.hasNext()) {
             String eng = scan.next();
@@ -95,5 +94,18 @@ class DictionaryManagement {
             }
             if (!found) System.out.println("Can not find any word");
         } while (true);
+    }
+    public void dictionaryExportToFile() throws IOException {
+        BufferedWriter bw = null;
+        FileWriter fileW = null;
+        String fileName = "C:\\Users\\Thu\\IdeaProjects\\Dictionary_TP\\dictionaries.txt";
+
+        fileW = new FileWriter(fileName);
+        bw = new BufferedWriter(fileW);
+        for(int i=0; i<dict.size; i++){
+            Word tempW = dict.words.get(i);
+            bw.write(tempW.getWord_target() + "\t" + tempW.getWord_explain());
+            bw.newLine();
+        }
     }
 }
