@@ -26,7 +26,7 @@ class DictionaryManagement {
         }
     }
     public static void insertFromFile() throws FileNotFoundException {
-        File file = new File("C:\\Users\\Thu\\IdeaProjects\\Dictionary\\dictionaries.txt");
+        File file = new File("C:\\Users\\Thu\\IdeaProjects\\Dictionary_TP\\dictionaries.txt");
         Scanner scan = new Scanner(file);
         while(scan.hasNext()) {
             String eng = scan.next();
