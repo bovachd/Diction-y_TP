@@ -1,6 +1,7 @@
 package source;
 
 import java.io.FileNotFoundException;
+
 import static source.DictionaryManagement.*;
 
 public class DictionaryCommandLine {
@@ -18,7 +19,13 @@ public class DictionaryCommandLine {
     private static void dictionaryAdvanced() throws FileNotFoundException {
         insertFromFile();
         showAllWords();
-        //dictionaryLookup();
+        deleteWord();
+        showAllWords();
+        dictionaryLookup();
+        dictionarySearcher();
+    }
+    private static void dictionarySearcher(){
+        Search();
     }
     public static void main(String[] args) throws FileNotFoundException {
         dictionaryAdvanced();
